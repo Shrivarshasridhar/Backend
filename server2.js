@@ -1,7 +1,31 @@
 const express = require('express');
 const server = express();
-const port = 5005;
+const mongoose=require('mongoose');
+require('dotenv').config();
+const mongoURI=process.env.mongo_uri;
+mongoose.connect(mongoURI)
+.then(()=>{
+console.log('Connected to MongoDB Atlas');
+})
+.catch((error)=>console.error('MongoDB connection error:'+ error));
+//schema
+const productschema=new mongoose.Schema({
+  name :
+  {
+  type:String,
+  required:true
+  },
+ price:{
+  type:Number,
+  required:true},
+}
+)
+const Item=mongoose.model('Item',productschema);
 
+
+
+
+const port = 5005;
 const items = [
   { id: 1, name: "kurta" },
   { id: 2, name: "shirts" },
